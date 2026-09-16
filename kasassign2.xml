@@ -1,1 +1,234 @@
 test test 
+
+
+
+<?xml version="1.0"?>
+
+<knowledge>
+    <title> </title>
+    <description> </description>
+
+    <goal>
+    <description></description>
+    <answer></answer>
+    <answer></answer>
+
+    </goal>
+
+    <rule>
+        <description>If the person commits a tortious act against another person, and the 
+        tortious act can be attributed to them, the person must repair the damage that the 
+        other person suffered as a result of the tortious act.</description>
+        <if>
+            <and>
+                <fact name="tortious-act-against-person">yes</fact>
+                <fact name="tortious-act-attributed">yes</fact>
+            </and>
+        </if>
+        <then>
+            <fact name="must-repair-damages">yes</fact>
+        </then>
+    </rule>
+
+    <rule>
+        <description>If an act or omission is in violation of another's right, in violation 
+        of the law or of proper social conduct, and there is no justification, this act or 
+        omission is a tortious act against the other person.</description>
+        <if>
+            <and>
+                <fact name="violation-others-right">yes</fact>
+                <or>
+                    <fact name="violation-law">yes</fact>
+                    <fact name="violation-socialconduct">yes</fact>
+                </or>
+                <fact name="justification">no</fact>
+            </and>
+        </if>
+        <then>
+            <fact name="tortious-act-against-person">yes</fact>
+        </then>
+    </rule>
+
+    <rule>
+        <description>If the tortious act is a result of the tortfeasors fault or of a cause 
+        for which they are accountable by law or by generally accepted principles, the 
+        tortious act is attributed to the tortfeasor. </description>
+        <if>
+            <or>
+                <fact name ="cause-fault">yes</fact>
+                <fact name ="cause-accountable-by-law">yes</fact>
+                <fact name ="cause-accountable-by-principles">yes</fact>
+            </or>
+        </if>
+        <then>
+            <fact name ="tortious-act-attributed">yes</fact>
+        </then>
+    </rule>
+
+
+
+    
+    
+    <rule>
+        <description>If the person commits a tortious act against another person, is 
+        older than 13, and has a mental or physical disability, the tortious act is still
+        attributed to them. </description>
+        <if>
+            <and>
+                <fact name="tortious-act-against-person">yes</fact>
+                <fact name="older-than-13">yes</fact>
+                <or>
+                    <fact name="mental-disability">yes</fact>
+                    <fact name="physical-disability">yes</fact>
+                </or>
+            </and>
+        </if>
+        <then>
+            <fact name="tortious-act-attributed">yes</fact>
+        </then>
+    </rule>
+    
+    
+    <question>
+        <description>Is the person older than 13?</description>
+        <option>
+            <description>yes</description>
+            <then>
+                <fact name="older-than-13">yes</fact>
+            </then>
+        </option>
+        <option>
+            <description>no</description>
+            <then>
+                <fact name="older-than-13">no</fact>
+            </then>
+        </option>
+    </question>
+
+    
+    (((
+    <question>
+        <description>Does the person have a physical disability?</description>
+        <option>
+            <description>yes</description>
+            <then>
+                <fact name="physical-disability">yes</fact>
+            </then>
+        </option>
+        <option>
+            <description>no</description>
+            <then>
+                <fact name="physical-disability">no</fact>
+            </then>
+        </option>
+    </question>
+
+    <question>
+        <description>Does the person have a mental disability?</description>
+        <option>
+            <description>yes</description>
+            <then>
+                <fact name="mental-disability">yes</fact>
+            </then>
+        </option>
+        <option>
+            <description>no</description>
+            <then>
+                <fact name="mental-disability">no</fact>
+            </then>
+        </option>
+    </question>
+    )))
+
+    <question>
+        <description>Is the act or omission of the person in violation with the law?</description>
+        <option>
+            <description>yes</description>
+            <then>
+                <fact name="violation-law">yes</fact>
+            </then>
+        </option>
+        <option>
+            <description>no</description>
+            <then>
+                <fact name="violation-law">no</fact>
+            </then>
+        </option>
+    </question>
+
+    <question>
+        <description>Is there a justification for the act or omission?</description>
+        <option>
+            <description>yes</description>
+            <then>
+                <fact name="justification">yes</fact>
+            </then>
+        </option>
+        <option>
+            <description>no</description>
+            <then>
+                <fact name="justification">no</fact>
+            </then>
+        </option>
+    </question>
+
+    <question>
+        <description>Is the act or omission in violation of another's right?</description>
+        <option>
+            <description>yes</description>
+            <then>
+                <fact name="violation-others-right">yes</fact>
+            </then>
+        </option>
+        <option>
+            <description>no</description>
+            <then>
+                <fact name="violation-others-right">no</fact>
+            </then>
+        </option>
+    </question>
+
+    <question>
+        <description>Is the tortious act a result of the tortfeasors fault?</description>
+        <option>
+            <description>yes</description>
+            <then>
+                <fact name="cause-fault">yes</fact>
+            </then>
+        </option>
+        <option>
+            <description>no</description>
+            <then>
+                <fact name="cause-fault">no</fact>
+            </then>
+        </option>
+    </question>
+
+    <question>
+        <description></description>
+        <option>
+            <description>yes</description>
+            <then>
+                <fact name="">yes</fact>
+            </then>
+        </option>
+        <option>
+            <description>no</description>
+            <then>
+                <fact name="">no</fact>
+            </then>
+        </option>
+    </question>
+
+
+    <question>
+        <description></description>
+
+    </question>
+
+    <question>
+        <description></description>
+
+    </question>
+
+</knowledge>
