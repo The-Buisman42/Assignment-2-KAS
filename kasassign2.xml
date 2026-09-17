@@ -4,10 +4,10 @@
     <title> </title>
     <description> </description>
 
-    <goal>
-        <description></description>
-        <answer></answer>
-        <answer></answer>
+    <goal name="must-repair-damages">
+        <description>This program aims to register in which case the person who is claimed to cause damages, needs to pay the person who claims to be violated by that person for those damages.</description>
+        <answer value="yes">Fucker must pay</answer>
+        <answer value="no">You are good</answer>
 
     </goal>
 
@@ -25,6 +25,9 @@
         <then>
             <fact name="must-repair-damages">yes</fact>
         </then>
+        <else>
+            <fact name="must-repair-damages">no</fact> <!--Need to code that the conditions must be NO, not just undefined-->
+        </else>
     </rule>
 
     <rule>
@@ -51,11 +54,14 @@
             for which they are accountable by law or by generally accepted principles, the
             tortious act is attributed to the tortfeasor. </description>
         <if>
-            <or>
-                <fact name="cause-fault">yes</fact>
-                <fact name="cause-accountable-by-law">yes</fact>
-                <fact name="cause-accountable-by-principles">yes</fact>
-            </or>
+            <and>
+                <fact name="can-tortious-act-attributed">yes</fact>
+                <or>
+                    <fact name="cause-fault">yes</fact>
+                    <fact name="cause-accountable-by-law">yes</fact>
+                    <fact name="cause-accountable-by-principles">yes</fact>
+                </or>
+            </and>
         </if>
         <then>
             <fact name="tortious-act-attributed">yes</fact>
@@ -72,13 +78,13 @@
                 <fact name="tortious-act-against-person">yes</fact>
                 <fact name="older-than-13">yes</fact>
                 <or>
-                    <fact name="mental-disability">yes</fact>
-                    <fact name="physical-disability">yes</fact>
+                    <fact name="relevant-mental-disability">yes</fact>
+                    <fact name="relevant-physical-disability">yes</fact>
                 </or>
             </and>
         </if>
         <then>
-            <fact name="tortious-act-attributed">yes</fact>
+            <fact name="can-tortious-act-attributed">yes</fact>
         </then>
     </rule>
 
@@ -195,33 +201,33 @@
         </option>
     </question>
     <question>
-        <description>Does the person have a physical disability?</description>
+        <description>Does the person have a physical disability that influenced their action?</description>
         <option>
             <description>yes</description>
             <then>
-                <fact name="physical-disability">yes</fact>
+                <fact name="relevant-physical-disability">yes</fact>
             </then>
         </option>
         <option>
             <description>no</description>
             <then>
-                <fact name="physical-disability">no</fact>
+                <fact name="relevant-physical-disability">no</fact>
             </then>
         </option>
     </question>
 
     <question>
-        <description>Does the person have a mental disability?</description>
+        <description>Does the person have a mental disability that influenced their action?</description>
         <option>
             <description>yes</description>
             <then>
-                <fact name="mental-disability">yes</fact>
+                <fact name="relevant-mental-disability">yes</fact>
             </then>
         </option>
         <option>
             <description>no</description>
             <then>
-                <fact name="mental-disability">no</fact>
+                <fact name="relevant-mental-disability">no</fact>
             </then>
         </option>
     </question>
