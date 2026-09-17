@@ -5,20 +5,21 @@
     <description> </description>
 
     <goal>
-    <description></description>
-    <answer></answer>
-    <answer></answer>
+        <description></description>
+        <answer></answer>
+        <answer></answer>
 
     </goal>
 
     <rule>
-        <description>If the person commits a tortious act against another person, and the 
-        tortious act can be attributed to them, the person must repair the damage that the 
-        other person suffered as a result of the tortious act.</description>
+        <description>If the person commits a tortious act against another person, and the
+            tortious act can be attributed to them, the person must repair the damage that the
+            other person suffered as a result of the tortious act.</description>
         <if>
             <and>
                 <fact name="tortious-act-against-person">yes</fact>
                 <fact name="tortious-act-attributed">yes</fact>
+                <fact name="norm-compensates-damage">yes</fact>
             </and>
         </if>
         <then>
@@ -27,9 +28,9 @@
     </rule>
 
     <rule>
-        <description>If an act or omission is in violation of another's right, in violation 
-        of the law or of proper social conduct, and there is no justification, this act or 
-        omission is a tortious act against the other person.</description>
+        <description>If an act or omission is in violation of another's right, in violation
+            of the law or of proper social conduct, and there is no justification, this act or
+            omission is a tortious act against the other person.</description>
         <if>
             <and>
                 <fact name="violation-others-right">yes</fact>
@@ -46,29 +47,26 @@
     </rule>
 
     <rule>
-        <description>If the tortious act is a result of the tortfeasors fault or of a cause 
-        for which they are accountable by law or by generally accepted principles, the 
-        tortious act is attributed to the tortfeasor. </description>
+        <description>If the tortious act is a result of the tortfeasors fault or of a cause
+            for which they are accountable by law or by generally accepted principles, the
+            tortious act is attributed to the tortfeasor. </description>
         <if>
             <or>
-                <fact name ="cause-fault">yes</fact>
-                <fact name ="cause-accountable-by-law">yes</fact>
-                <fact name ="cause-accountable-by-principles">yes</fact>
+                <fact name="cause-fault">yes</fact>
+                <fact name="cause-accountable-by-law">yes</fact>
+                <fact name="cause-accountable-by-principles">yes</fact>
             </or>
         </if>
         <then>
-            <fact name ="tortious-act-attributed">yes</fact>
+            <fact name="tortious-act-attributed">yes</fact>
         </then>
     </rule>
 
 
-
-    
-    
     <rule>
-        <description>If the person commits a tortious act against another person, is 
-        older than 13, and has a mental or physical disability, the tortious act is still
-        attributed to them. </description>
+        <description>If the person commits a tortious act against another person, is
+            older than 13, and has a mental or physical disability, the tortious act is still
+            attributed to them. </description>
         <if>
             <and>
                 <fact name="tortious-act-against-person">yes</fact>
@@ -83,8 +81,104 @@
             <fact name="tortious-act-attributed">yes</fact>
         </then>
     </rule>
-    
-    
+
+    <!--This
+    rules-section is about the law 6:163, which decides whether the damages need to be paid on the
+    basis of the violated norm
+    -->
+    <rule>
+        <description>
+            "6:163: There is no obligation to repair the damage on the ground of a tortious act if
+            the violated
+            standard of behaviour does not intend to offer protection against damage as suffered by
+            the
+            injured person." In other words: this law aims to keep the usage of the tortious act
+            within reasonable bounds.
+            The basis on which a claim is made (the law that is called by the victim), has to be the
+            same basis as the called reason (The
+            reason the victim thinks he is violated).
+        </description>
+        <if>
+            <and>
+                <fact name="tortious-act-against-person">yes</fact>
+                <fact name="tortious-act-attributed">yes</fact>
+                <fact name="violated-standard-intends">yes</fact>
+            </and>
+        </if>
+        <then>
+            <fact name="norm-compensates-damage">yes</fact>
+        </then>
+    </rule>
+
+    <rule>
+        <description>
+            The standard of behaviour, that has been violated, needs to intend to offer protection
+            against the claimed damage.
+        </description>
+        <if>
+            <and>
+                <fact name="norm-protects-group">yes</fact>
+                <fact name="norm-protects-type-damage">yes</fact>
+                <fact name="norm-prevents-occurance">yes</fact>
+            </and>
+        </if>
+        <then>
+            <fact name="violated-standard-intends">yes</fact>
+        </then>
+    </rule>
+
+    <question>
+        <description>Does the broken norm, being the law or social conduct whose imposed duty is
+            violated, aim to protect the victim?</description>
+        <option>
+            <description>yes</description>
+            <then>
+                <fact name="norm-protects-group">yes</fact>
+            </then>
+        </option>
+        <option>
+            <description>no</description>
+            <then>
+                <fact name="norm-protects-group">no</fact>
+            </then>
+        </option>
+    </question>
+
+    <question>
+        <description>Does the broken norm, being the law or social conduct whose imposed duty is
+            violated, aim to protect against the type of damage. i.e. financial or physical?</description>
+        <option>
+            <description>yes</description>
+            <then>
+                <fact name="norm-protects-type-damage">yes</fact>
+            </then>
+        </option>
+        <option>
+            <description>no</description>
+            <then>
+                <fact name="norm-protects-type-damage">no</fact>
+            </then>
+        </option>
+    </question>
+
+    <question>
+        <description>Does the broken norm, being the law or social conduct whose imposed duty is
+            violated, aim to prevent the manner at which the victim claims to be damaged.</description>
+        <option>
+            <description>yes</description>
+            <then>
+                <fact name="norm-prevents-occurance">yes</fact>
+            </then>
+        </option>
+        <option>
+            <description>no</description>
+            <then>
+                <fact name="norm-prevents-occurance">no</fact>
+            </then>
+        </option>
+    </question>
+
+
     <question>
         <description>Is the person older than 13?</description>
         <option>
@@ -100,9 +194,6 @@
             </then>
         </option>
     </question>
-
-    
-    (((
     <question>
         <description>Does the person have a physical disability?</description>
         <option>
@@ -134,8 +225,6 @@
             </then>
         </option>
     </question>
-    )))
-
     <question>
         <description>Is the act or omission of the person in violation with the law?</description>
         <option>

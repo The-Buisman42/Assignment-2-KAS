@@ -1,1 +1,87 @@
 <?xml version="1.0"?>
+
+
+<!--This section is about the law 6:163, which decides whether the damages need to be paid on the basis of the violated norm-->
+<rule>
+    <description>
+        "6:163: There is no obligation to repair the damage on the ground of a tortious act if the violated
+        standard of behaviour does not intend to offer protection against damage as suffered by the
+        injured person." In other words: this law aims to keep the usage of the tortious act within reasonable bounds.
+        The basis on which a claim is made (the law that is called by the victim), has to be the same basis as the called reason (The
+        reason the victim thinks he is violated).
+    </description>
+    <if>
+        <and>
+            <fact name="tortious-act-against-person">yes</fact>
+            <fact name="tortious-act-attributed">yes</fact>
+            <fact name="violated-standard-intends">yes</fact>
+        </and>
+    </if>
+    <then>
+        <fact name="norm-compensates-damage">yes</fact>
+    </then>
+</rule>
+
+<rule>
+    <description>
+        The standard of behaviour, that has been violated, needs to intend to offer protection against the claimed damage.
+    </description>
+    <if>
+        <and>
+            <fact name="norm-protects-group">yes</fact>
+            <fact name="norm-protects-type-damage">yes</fact>
+            <fact name="norm-prevents-occurance">yes</fact>
+        </and>
+    </if>
+    <then>
+        <fact name="violated-standard-intends">yes</fact>
+    </then>
+</rule>
+
+<question>
+    <description>Does the broken norm, being the law or social conduct whose imposed duty is violated, aim to protect the victim?</description>
+    <option>
+        <description>yes</description>
+        <then>
+            <fact name="norm-protects-group">yes</fact>
+        </then>
+    </option>
+    <option>
+        <description>no</description>
+        <then>
+            <fact name="norm-protects-group">no</fact>
+        </then>
+    </option>
+</question>
+
+<question>
+    <description>Does the broken norm, being the law or social conduct whose imposed duty is violated, aim to protect against the type of damage. i.e. financial or physical?</description>
+    <option>
+        <description>yes</description>
+        <then>
+            <fact name="norm-protects-type-damage">yes</fact>
+        </then>
+    </option>
+    <option>
+        <description>no</description>
+        <then>
+            <fact name="norm-protects-type-damage">no</fact>
+        </then>
+    </option>
+</question>
+
+<question>
+    <description>Does the broken norm, being the law or social conduct whose imposed duty is violated, aim to prevent the manner at which the victim claims to be damaged.</description>
+    <option>
+        <description>yes</description>
+        <then>
+            <fact name="norm-prevents-occurance">yes</fact>
+        </then>
+    </option>
+    <option>
+        <description>no</description>
+        <then>
+            <fact name="norm-prevents-occurance">no</fact>
+        </then>
+    </option>
+</question>
